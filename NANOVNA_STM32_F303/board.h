@@ -25,7 +25,7 @@
  * Board identifier.
  */
 #define BOARD_NANOVNA_STM32_F303
-#define BOARD_NAME              "tinySA ULTRA"
+#define BOARD_NAME              "HBA-D"
 
 #include <stm32f303xc.h>
 //#include "..\nanovna.h"
