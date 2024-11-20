@@ -2168,6 +2168,11 @@ static UI_FUNCTION_ADV_CALLBACK(menu_mode_acb)
   case 3:
     menu_push_submenu(menu_highoutputmode);
     break;
+   case 5:
+    //mijn functie
+    
+    ui_mode_keypad(KM_LEVEL);
+    break;
   }
   redraw_request |= REDRAW_CAL_STATUS;
 }
