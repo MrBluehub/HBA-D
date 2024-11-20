@@ -1,5 +1,8 @@
-tinySA - tiny Spectrum Analyzer
+HBA-D - High-Band Antenna Diagnostics
 ==========================================================
+Lofar tile tester based on Erik Kaashoek's TinySA ultra:
+https://github.com/erikkaashoek/tinySA
+https://www.tinysa.org
 
 [![GitHub release](http://img.shields.io/github/release/erikkaashoek/tinySA.svg?style=flat)][release]
 [![CircleCI](https://circleci.com/gh/erikkaashoek/tinySA.svg?style=shield)](https://circleci.com/gh/erikkaashoek/tinySA)
@@ -12,32 +15,28 @@ tinySA - tiny Spectrum Analyzer
 
 # About
 
-tinySA is very tiny handheld Spectrum Analyzer (SA). It is
-standalone with lcd display, portable device with battery. This
-project aim to provide an useful instrument for the RF 
-enthusiast.
+HBA-D aims to bring field diagnostics of HBA Tiles in a portable device utilizing a custom io bord added to the TinySA. This small handheld Spectrum Analyzer (SA) functions as the user interface
 
-This repository contains source of tinySA firmware.
+This repository contains source of HBA-D firmware, largely based on the TinySA.
 
-# Support
 
-General tinySA support questions should be posted here: https://groups.io/g/tinysa/messages
+### Update HBA-D Firmware:
 
-Use github issue list only for firmware bugs and preferrably cross post to: https://groups.io/g/tinysa/messages
+# prerequisites: 
 
-## Prepare ARM Cross Tools
 
-**UPDATE**: Recent gcc version works to build tinySA, no need old version.
 
-### MacOSX
+    Linux PC to compile firmware with the below dependencies 
 
-Install cross tools and firmware updating tool.
+    Install GIT : sudo apt-get install git  
+    (with sudo you elevate the terminal with administrative privileges required to install software using ‘apt get’, which is a application that allows rapid download and installation of software build into linux. Using apt-get we install git to easily clone the latest HBA-D from its git repositor.) 
 
-    $ brew tap px4/px4
-    $ brew install gcc-arm-none-eabi-80
-    $ brew install dfu-util
+    Install Make: sudo apt install make  
+    (installs the ‘make’ library to linux, in this case it is used to compile software from .c to .bin files) 
 
-### Linux (ubuntu)
+    Windows PC with STM32 Cube Programmer 
+
+### Linux (ubuntu) 
 
 Download arm cross tools from [here](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads).
 
@@ -50,32 +49,24 @@ Download arm cross tools from [here](https://developer.arm.com/tools-and-softwar
 
 Fetch source and submodule.
 
-    $ git clone https://github.com/erikkaashoek/tinySA.git
-    $ cd tinySA
+    $ git clone https://github.com/MrBluehub/HBA-D.git
+    $ cd HBA-D
     $ git submodule update --init --recursive
 
 ## Build
 
 Just make in the directory.
 
-    $ make
-
-For tinySA Ultra use this command
-
     $ make TARGET="F303"
 
-### Build firmware using docker
+    (Remove TARGET="F303" for non-ultra, custom software is untested on this device.) 
 
-Using [this docker image](https://hub.docker.com/r/edy555/arm-embedded) and without installing arm toolchain, you can build the firmware.
-
-    $ cd tinySA
-    $ docker run -it --rm -v $(PWD):/work edy555/arm-embedded:8.2 make
 
 ## Flash firmware
 
 First, make device enter DFU mode by one of following methods.
 
-* Jumper BOOT0 pin at powering device
+* Jumper BOOT0 pin at powering device by holding down the rocker button
 * Select menu Config->DFU (needs recent firmware)
 
 Then, flash firmware using dfu-util via USB.
@@ -86,31 +77,48 @@ Or simply use make.
 
     $ make flash
 
-## Companion Tools
+## Flashing using a windows pc
 
-There are several numbers of great companion PC tools from third-party.
+Move the file tinySA4.bin from /usr/local/HBA-D/build/ to the windows pc. This is the firmware compiled using the Linux pc required for updating. Currently there is no known way to compile the software using a windows tool.
 
-* [Soon to come](https://github.com/erikkaashoek/tinySA-Win) by Erik
-* [tinySASaver](https://github.com/erikkaashoek/tinySA-saver) by Erik
+Launch STM32 Cube Programmer 
 
-## Documentation
+### Video instructions: 
+
+https://www.youtube.com/watch?v=i8CYCua8vqQ&t=396s 
+
+TLDR: Put TinySA in boot mode by holding down the menu button while turning on the device. Make a USB connection to a Windows pc and launch STM32 CubeProgrammer 
+
+### Written instructions:
+
+Select USB as the desired connection method, refresh and select the HBA-D (likely USB1).
+
+Select "open file" and choose the firmware you compiled in previous steps (tinySA4.bin)
+
+Click the download button to start the update process.
+
+After the completion screen you can Disconnect in CubeProgrammer, disconnect the TinySA and reboot into your new firmware. 
+
+## TinySA specific information below:
+
+### Documentation
 
 * [tinySA User Guide](https://tinySA.org/wiki/)
 
-## Reference
+### Reference
 
 * [Specification](https://tinysa.org/wiki/pmwiki.php?n=Main.Specification)
 * [Technical info](https://tinysa.org/wiki/pmwiki.php?n=Main.TechnicalDescription)
 
-## Note
+### Note
 
-tinySA is a trademark owned by its respective owner. Unauthorized use the the name tinySA not permitted
+tinySA is a trademark owned by its respective owner. Unauthorized use of the name tinySA not permitted
 
-## Authorized Distributor
+### Authorized Distributor
 
 * [See the Wiki](https://tinysa.org/wiki/pmwiki.php?n=Main.Buying)
 
-## Credit
+### Credit
 
 * [@erikkaashoek](https://github.com/erikkaashoek)
 
