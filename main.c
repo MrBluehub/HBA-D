@@ -91,9 +91,10 @@ uint16_t redraw_request = 0; // contains REDRAW_XXX flags
 // Version text, displayed in Config->Version menu, also send by info command
 const char * const info_about[]={
   BOARD_NAME,
+  "2024 copyright @Anneloes van der hoef @Tjidde Dijkstra"
   "2019-2024 Copyright @Erik Kaashoek",
   "2016-2020 Copyright @edy555",
-  "SW licensed under GPL. See: https://github.com/erikkaashoek/tinySA",
+  "SW licensed under GPL. See: https://github.com/MrBluehub/HBA-D",
   "Version: " VERSION,
   "Build Time: " __DATE__ " - " __TIME__,
   "Kernel: " CH_KERNEL_VERSION,
